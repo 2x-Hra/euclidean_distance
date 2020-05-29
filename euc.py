@@ -7,49 +7,8 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import numpy as np
 
-def rows_readFile(file_name):
-    '''
-        this function will read the file row by row
-    '''
-    
-    csv_arr =[]
-    with open(file_name, 'r') as csv_file:
-        csv_reader = reader(csv_file)
-        for row in csv_reader:
-            csv_arr.append(row)
-        
-    
-    return csv_arr
 
-def column_readFile(file_name,col):
-    '''
-        read the file and return the column with number "col"
-        for example if col == 2 then it will return the 2th column of the file
-    '''
-    arr_res = []
-    with open(file_name, "r") as csv_file:
-        csv_reader = reader(csv_file)
-        for lines in csv_reader:
-            arr_res.append(lines[col])
-    return arr_res
 
-def columnedFile(file_name):
-    '''
-        this function will read the file column by column and return all the columns in a 2d array
-    '''
-    counter =0
-    file_col = []
-    while(counter <4):
-        temp_row = column_readFile(file_name,counter)
-        
-        file_col.append(temp_row)
-        print(temp_row)
-
-        counter +=1
-
-    file_col = strTofloat(file_col)
-
-    return file_col
 
 def strTofloat(Arr2D):
     '''
@@ -186,6 +145,65 @@ def kmeans(csv_arr):
             break
         
     return (new_points1, new_points2)
+
+
+def d_cal(points1, points2 ):
+    counter = 0
+    min_arr = []
+    while(counter < len(points1)):
+        el = points1[counter]
+        arr_d = euclD_center(el,points2)
+        min_arr.append(min(arr_d))
+
+        counter +=1
+    
+    return min(min_arr)
+
+
+
+# reading and ploter section in down below ~~~~~~~~~~~~~~~~~~ #
+
+def rows_readFile(file_name):
+    '''
+        this function will read the file row by row
+    '''
+    
+    csv_arr =[]
+    with open(file_name, 'r') as csv_file:
+        csv_reader = reader(csv_file)
+        for row in csv_reader:
+            csv_arr.append(row)
+    return csv_arr
+
+def column_readFile(file_name,col):
+    '''
+        read the file and return the column with number "col"
+        for example if col == 2 then it will return the 2th column of the file
+    '''
+    arr_res = []
+    with open(file_name, "r") as csv_file:
+        csv_reader = reader(csv_file)
+        for lines in csv_reader:
+            arr_res.append(lines[col])
+    return arr_res
+
+def columnedFile(file_name):
+    '''
+        this function will read the file column by column and return all the columns in a 2d array
+    '''
+    counter =0
+    file_col = []
+    while(counter <4):
+        temp_row = column_readFile(file_name,counter)
+        
+        file_col.append(temp_row)
+       
+
+        counter +=1
+
+    file_col = strTofloat(file_col)
+
+    return file_col
 def ploter(columned_file):
     '''
         this function will plot 4D dots
@@ -202,10 +220,16 @@ def ploter(columned_file):
     fig.colorbar(img)
     plt.show()
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+
+
+
 arr = rows_readFile("dataset.csv")
 arr_csv = strTofloat(arr)
 a1, a2 = kmeans(arr_csv)
 
+print("d is equal to:"+ str(d_cal(a1,a2)))
 # ploter(columnedFile("dataset.csv")) # this Line will plot the dataset File
 
 with open('result1.csv', 'w',newline='') as write_file:
@@ -217,5 +241,7 @@ with open('result2.csv', 'w',newline='') as write_file:
     csv_writer = writer( write_file )
     for c in a2:
         csv_writer.writerow(c)
+
+
 
 ploter(columnedFile("result2.csv"))
