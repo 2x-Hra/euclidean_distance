@@ -116,8 +116,9 @@ def avg_cal (arr2d):
 
 
 def kmeans(csv_arr):
-    center1 = csv_arr[0]
-    center2 = csv_arr[1]
+    index1 , index2 = center_finder(csv_arr)
+    center1 = csv_arr[index1]
+    center2 = csv_arr[index2]
     arr1_euc = []
     arr2_euc = []
     new_points1 = []
@@ -164,19 +165,25 @@ def center_finder(csv_arr):
     counter = 0
     max_arr = []
     index_arr =[]
+    index_temp1 = 0
+    index_temp2 = 0
+    max_temp =0
     while(counter < len(csv_arr)):
         el = csv_arr[counter]
         arr_d = euclD_center(el,csv_arr)
-        max_temp = max(arr_d)
-        max_arr.append(max_temp)
-    
+
+        for i in range(len(arr_d)):
+
+            if(arr_d[i] > max_temp):
+                max_temp = arr_d[i]
+                index_temp1 = counter
+                index_temp2 = i
+
         counter +=1
 
-    max_temp = max(max_arr)
-    index_temp = arr_d.index(max_temp)
-    
-    return csv_arr[index_temp]
 
+
+    return (index_temp1,index_temp2)
 
 # reading and ploter section in down below ~~~~~~~~~~~~~~~~~~ #
 
@@ -246,9 +253,31 @@ arr = rows_readFile("dataset.csv")
 arr_csv = strTofloat(arr)
 a1, a2 = kmeans(arr_csv)
 
+if(arr_csv[0] in a1):
+    file = open("result.txt","w")
+    for el in arr_csv:
+        if(el in a1):
+            file.write("0" + "\n")
+        else:
+            file.write("1\n")
+        
+else:
+    file = open("result.txt", "w")
+    for el in arr_csv:
+        if(el in a2):
+            file.write("0\n")
+        else:
+            file.write("1\n")
+
+file.write(str(d_cal(a1,a2)))
+
+file.close()
+
 print("d is equal to:"+ str(d_cal(a1,a2)))
 # ploter(columnedFile("dataset.csv")) # this Line will plot the dataset File
 
+
+################# for ploting
 with open('result1.csv', 'w',newline='') as write_file:
     csv_writer = writer( write_file )
     for c in a1:
@@ -261,4 +290,4 @@ with open('result2.csv', 'w',newline='') as write_file:
 
 
 
-ploter(columnedFile("result2.csv"))
+# ploter(columnedFile("result2.csv"))
