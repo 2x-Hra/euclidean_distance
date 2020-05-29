@@ -116,6 +116,14 @@ def avg_cal (arr2d):
 
 
 def kmeans(csv_arr):
+
+    '''
+        2ta center migire va bad hameye fasele haro ta in 2ta hesab mikone va bad
+        kootah tarin ro beyne in 2ta peyda mikone 
+        va oon elementi ke fasele kootah tari nesbat be har markaz dare dar dasteye oon markaz gharar migire
+
+
+    '''
     index1 , index2 = center_finder(csv_arr)
     center1 = csv_arr[index1]
     center2 = csv_arr[index2]
@@ -231,6 +239,7 @@ def columnedFile(file_name):
 def ploter(columned_file):
     '''
         this function will plot 4D dots
+        just for a test
     '''
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
@@ -247,7 +256,26 @@ def ploter(columned_file):
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 
+'''
 
+    kari k man kardam ine ke az algorithm Kmeans estefade kardam ke bar asase minmume fasele byne noghat miad 2 daste mikone
+    tozih:
+    aval 2ta markaz ro entekhab mikonam b in shekl ke miam 2ta noghte k bishtarin fasele ro darand be onvane 
+    center 1 va center 2 entekhab mikonam va bad miam fasele tamam noghat ro ta in 2ta center be dast miaram
+    bad be har kodom ke nazdik tar bood oon noghtaro mizaram tooye oon daste va hamintowr edame midam
+
+    vaghty ke 1 dowr in etefagh oftad baraye bare 2om bayad 2 ta center jadid entekhab konam va baraye in kar az 
+    average noghat har daste estefade kardam , be in soorat ke noghati ke dar dasteye 1 hastand average_x o y o z o c ro hesab kardam
+    va noghteye jadid be dast oomad va dobare raveshe bala ra edame dadam
+    
+    ravesehe bala inghadr edame peyda mikonad ta 2ta liste jadidam ba 2ta liste dowre ghabli yeki shavand dar in marhale
+    2ta cluster peyda shodand va braye mohasebeye D kootah tarin faseleye beyne noghate cluster1 va noghate cluster2 ast
+
+    cluster1 tooye file result1.csv va cluster2 tooye file result2.csv rikhte mishavand
+
+    va Output morede nazar soal tooye result.txt rikhte shode ast
+
+'''
 
 arr = rows_readFile("dataset.csv")
 arr_csv = strTofloat(arr)
@@ -277,7 +305,12 @@ print("d is equal to:"+ str(d_cal(a1,a2)))
 # ploter(columnedFile("dataset.csv")) # this Line will plot the dataset File
 
 
-################# for ploting
+
+
+
+
+
+
 with open('result1.csv', 'w',newline='') as write_file:
     csv_writer = writer( write_file )
     for c in a1:
