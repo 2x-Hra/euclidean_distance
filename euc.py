@@ -160,6 +160,23 @@ def d_cal(points1, points2 ):
     return min(min_arr)
 
 
+def center_finder(csv_arr):
+    counter = 0
+    max_arr = []
+    index_arr =[]
+    while(counter < len(csv_arr)):
+        el = csv_arr[counter]
+        arr_d = euclD_center(el,csv_arr)
+        max_temp = max(arr_d)
+        max_arr.append(max_temp)
+    
+        counter +=1
+
+    max_temp = max(max_arr)
+    index_temp = arr_d.index(max_temp)
+    
+    return csv_arr[index_temp]
+
 
 # reading and ploter section in down below ~~~~~~~~~~~~~~~~~~ #
 
