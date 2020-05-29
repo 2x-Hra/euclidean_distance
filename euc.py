@@ -311,12 +311,12 @@ print("d is equal to:"+ str(d_cal(a1,a2)))
 
 
 
-with open('result1.csv', 'w',newline='') as write_file:
+with open('result1_euc.csv', 'w',newline='') as write_file:
     csv_writer = writer( write_file )
     for c in a1:
         csv_writer.writerow(c)
 
-with open('result2.csv', 'w',newline='') as write_file:
+with open('result2_euc.csv', 'w',newline='') as write_file:
     csv_writer = writer( write_file )
     for c in a2:
         csv_writer.writerow(c)
